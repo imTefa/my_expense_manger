@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/widgets/common/AdaptiveButton.dart';
 import 'package:intl/intl.dart';
 
 class InputTransaction extends StatefulWidget {
@@ -70,22 +71,16 @@ class _InputTransactionState extends State<InputTransaction> {
                             : DateFormat.yMMMd().format(_selectedDate),
                       ),
                     ),
-                    (Platform.isIOS)
-                        ? CupertinoButton(
-                            onPressed: _showDatePicker,
-                            child: Text(
-                              'Choose date',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        : FlatButton(
-                            textColor: Theme.of(context).primaryColor,
-                            onPressed: _showDatePicker,
-                            child: Text(
-                              'Choose date',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          )
+                    AdaptiveButton(
+                      onPressed: _showDatePicker(),
+                      child: Text(
+                        'Choose date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

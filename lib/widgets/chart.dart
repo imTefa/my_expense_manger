@@ -3,13 +3,20 @@ import 'package:flutter_app/models/Transaction.dart';
 import 'package:flutter_app/widgets/Bar.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class ChartWidget extends StatelessWidget {
   final List<Transaction> _transactions;
 
-  ChartWidget(this._transactions);
+  List<Map<String, Object>> _recentTransactionsMap;
+  double _totalSpend = 0.0;
 
-  List<Map<String, Object>> get _recentTransactionsMap {
-    return List.generate(7, (index) {
+  ChartWidget(this._transactions) {
+    _calcRecentMap();
+    _calcTotalSpend();
+  }
+
+  void _calcRecentMap() {
+    _recentTransactionsMap = List.generate(7, (index) {
       final weedDay = DateTime.now().subtract(Duration(days: index));
       var totalAmount = 0.0;
 
@@ -25,8 +32,8 @@ class ChartWidget extends StatelessWidget {
     }).reversed.toList();
   }
 
-  double get totalSpend {
-    return _recentTransactionsMap.fold(
+  void _calcTotalSpend() {
+    _totalSpend = _recentTransactionsMap.fold(
         0.0, (sum, element) => sum + element['amount']);
   }
 
@@ -34,15 +41,14 @@ class ChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: _recentTransactionsMap.map((e) {
-            var tSpend = totalSpend;
             var percentage =
-                tSpend > 0.0 ? (e['amount'] as double) / tSpend : 0.0;
+                _totalSpend > 0.0 ? (e['amount'] as double) / _totalSpend : 0.0;
             print('percentage of day ${e['day']} = $percentage');
             return Flexible(
               fit: FlexFit.tight,

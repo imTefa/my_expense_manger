@@ -1,8 +1,7 @@
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/common/AdaptiveButton.dart';
+import 'package:flutter_app/ui/common/adaptive_button.dart';
 import 'package:intl/intl.dart';
 
 class InputTransaction extends StatefulWidget {
@@ -72,7 +71,7 @@ class _InputTransactionState extends State<InputTransaction> {
                       ),
                     ),
                     AdaptiveButton(
-                      onPressed: _showDatePicker(),
+                      onPressed: _showDatePicker,
                       child: Text(
                         'Choose date',
                         style: TextStyle(

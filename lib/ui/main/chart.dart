@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/Transaction.dart';
-import 'package:flutter_app/widgets/Bar.dart';
+import 'package:flutter_app/ui/main/bar.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable

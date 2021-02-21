@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/main/chart.dart';
 import 'package:flutter_app/ui/main/add_new_transaction.dart';
+import 'package:flutter_app/ui/main/chart.dart';
 import 'package:flutter_app/ui/main/transaction_list.dart';
 
 import '../../models/Transaction.dart';
@@ -95,34 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final PreferredSizeWidget appBar = (Platform.isIOS)
-        ? CupertinoNavigationBar(
-            middle: Text(
-              "Personal expense",
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => _startAddNewTransaction(context),
-                )
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text(
-              "Personal expense",
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  _startAddNewTransaction(context);
-                },
-              )
-            ],
-          );
+    final PreferredSizeWidget appBar = _buildAppBar();
     final removedSize =
         appBar.preferredSize.height + MediaQuery.of(context).padding.top;
     final availableSize = MediaQuery.of(context).size.height - removedSize;
@@ -191,6 +164,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 : Container(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
+          );
+  }
+
+  Widget _buildAppBar() {
+    final title = const Text('Personal expense');
+    return (Platform.isIOS)
+        ? CupertinoNavigationBar(
+            middle: title,
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  child: const Icon(CupertinoIcons.add),
+                  onTap: () => _startAddNewTransaction(context),
+                )
+              ],
+            ),
+          )
+        : AppBar(
+            title: title,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () => _startAddNewTransaction(context),
+              )
+            ],
           );
   }
 }

@@ -150,7 +150,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return (Platform.isIOS)
-        ? CupertinoPageScaffold(child: body)
+        ? CupertinoPageScaffold(
+            child: body,
+            navigationBar: appBar,
+          )
         : Scaffold(
             appBar: appBar,
             body: body,

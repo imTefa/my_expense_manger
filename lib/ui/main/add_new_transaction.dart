@@ -35,63 +35,68 @@ class _InputTransactionState extends State<InputTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(
-            top: 10,
-            left: 10,
-            right: 10,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              TextField(
-                controller: _titleController,
-                decoration: InputDecoration(
-                  labelText: 'Title',
+      child: GestureDetector(
+        onVerticalDragDown: (_){
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                TextField(
+                  controller: _titleController,
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                  ),
                 ),
-              ),
-              TextField(
-                controller: _amountController,
-                decoration: InputDecoration(
-                  labelText: 'Amount',
+                TextField(
+                  controller: _amountController,
+                  decoration: InputDecoration(
+                    labelText: 'Amount',
+                  ),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                 ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-              ),
-              Container(
-                height: 70,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        _selectedDate == null
-                            ? 'No Date selected'
-                            : DateFormat.yMMMd().format(_selectedDate),
-                      ),
-                    ),
-                    AdaptiveButton(
-                      onPressed: _showDatePicker,
-                      child: Text(
-                        'Choose date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
+                Container(
+                  height: 70,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          _selectedDate == null
+                              ? 'No Date selected'
+                              : DateFormat.yMMMd().format(_selectedDate),
                         ),
                       ),
-                    ),
-                  ],
+                      AdaptiveButton(
+                        onPressed: _showDatePicker,
+                        child: Text(
+                          'Choose date',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              RaisedButton(
-                color: Theme.of(context).primaryColor,
-                onPressed: () {
-                  checkInputs();
-                },
-                textColor: Theme.of(context).textTheme.button.color,
-                child: Text('Add Transaction'),
-              ),
-            ],
+                RaisedButton(
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    checkInputs();
+                  },
+                  textColor: Theme.of(context).textTheme.button.color,
+                  child: Text('Add Transaction'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
